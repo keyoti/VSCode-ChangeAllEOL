@@ -1,0 +1,42 @@
+{
+	"name": "keyoti.changeallendoflinesequence",
+	"displayName": "Change All End Of Line Sequence",
+	"description": "Runs the built-in 'Change End Of Line Sequence' on all files of a specified type, leaving them open and unsaved.",
+	"version": "0.0.1",
+	"publisher": "Keyoti Inc.",
+	"repository": {
+		"url": "",
+		"type": "git"
+	},
+	"engines": {
+		"vscode": "^1.37.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:keyoti/changealleol"
+	],
+	"main": "./out/src/extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "keyoti/changealleol",
+				"title": "Change All End Of Line Sequence",
+				"category": "K"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "tslint -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/node": "^7.10.9",
+		"@types/vscode": "^1.37.0",
+		"tslint": "^5.16.0",
+		"typescript": "^3.5.1"
+	}
+}
