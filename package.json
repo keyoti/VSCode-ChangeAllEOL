@@ -5,7 +5,7 @@
 	"version": "0.0.1",
 	"publisher": "Keyoti Inc.",
 	"repository": {
-		"url": "",
+		"url": "https://github.com/keyoti/VSCode-ChangeAllEOL",
 		"type": "git"
 	},
 	"engines": {
