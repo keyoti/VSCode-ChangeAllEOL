@@ -13,12 +13,11 @@ export function activate(context: vscode.ExtensionContext) {
 	// Runs 'Change All End Of Line Sequence' on all files of specified type.
 	vscode.commands.registerCommand('keyoti/changealleol', async function () {
 
-		async function convertLineEndingsInFilesInFolder(folder: vscode.Uri, fileTypeArray: Array<string>): Promise<{ count: number }> {
+		async function convertLineEndingsInFilesInFolder(folder: vscode.Uri, fileTypeArray: Array<string>, newEnding: string): Promise<{ count: number }> {
 			let count = 0;
 			for (const [name, type] of await vscode.workspace.fs.readDirectory(folder)) {
 
 				if (type === vscode.FileType.File && fileTypeArray.filter( (el)=>{return name.endsWith(el);} ).length>0){ 
-				//if (type === vscode.FileType.File && name.endsWith(".txt")) {
 					const filePath = posix.join(folder.path, name);
 					
 					var doc = await vscode.workspace.openTextDocument(filePath);
@@ -26,7 +25,11 @@ export function activate(context: vscode.ExtensionContext) {
 					await vscode.window.showTextDocument(doc);
 					if(vscode.window.activeTextEditor!==null){
 						await vscode.window.activeTextEditor!.edit(builder => { 
-							builder.setEndOfLine(vscode.EndOfLine.LF);
+							if(newEnding==="LF"){
+								builder.setEndOfLine(vscode.EndOfLine.LF);
+							} else {
+								builder.setEndOfLine(vscode.EndOfLine.CRLF);
+							}
 							count ++; 
 						});
 						
@@ -36,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 
 				if (type === vscode.FileType.Directory && !name.startsWith(".")){
-					count += (await convertLineEndingsInFilesInFolder(vscode.Uri.file(posix.join(folder.path, name)), fileTypeArray)).count;
+					count += (await convertLineEndingsInFilesInFolder(vscode.Uri.file(posix.join(folder.path, name)), fileTypeArray, newEnding)).count;
 				}
 			}
 			return { count };
@@ -46,12 +49,15 @@ export function activate(context: vscode.ExtensionContext) {
 		let fileTypes = await vscode.window.showInputBox(options);
 		fileTypes = fileTypes!.replace(' ', '');
 		let fileTypeArray: Array<string> = [];
-		if(fileTypes!==null){
+
+		let newEnding = await vscode.window.showQuickPick(["LF", "CRLF"]);
+
+		if(fileTypes!==null && newEnding!=null){
 			fileTypeArray = fileTypes!.split(',');
 		
 			if(vscode.workspace.workspaceFolders!==null && vscode.workspace.workspaceFolders!.length>0){
 				const folderUri = vscode.workspace.workspaceFolders![0].uri;
-				const info = await convertLineEndingsInFilesInFolder(folderUri, fileTypeArray);
+				const info = await convertLineEndingsInFilesInFolder(folderUri, fileTypeArray, newEnding);
 				vscode.window.showInformationMessage(info.count+" files converted");
 			
 			}

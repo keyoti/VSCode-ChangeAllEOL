@@ -1,18 +1,17 @@
-# FileSystem Usage Sample
+# Change All End Of Line Sequence
 
-This is a sample extension that shows how to use the `vscode.workspace.fs` API. It is a series of commands, all prefixed with *FS*, that demonstrate file system capabilities and how to derive file-uris from existing uris. 
+This extension uses the built-in command 'Change End Of Line Sequence' to change the line ending (LF or CRLF) of all files of a specified type(s) in the Visual Studio Code workspace.
 
 
-### Derive new paths with `path.posix`
+## Usage
 
-Throughout this sample [`path.posix`](https://nodejs.org/dist/latest-v10.x/docs/api/path.html#path_path_posix) is being used. This is important because uri paths are always slash-separated (`/`) and because the backslash (`\`) can be a valid file name. For more details see: https://nodejs.org/dist/latest-v10.x/docs/api/path.html#path_windows_vs_posix 
+* WARNING: Currently there is NO WAY to abort the process, it won't actually save any changes automatically but it can take some time, sorry, please check the number of files first.
+* Open the command pallette (CTRL+SHIFT+P) and type "Change All End Of Line Sequence".
+* You will be asked for the file types that should have their line endings changed (directories starting with '.' are ignored).
+* You will be asked what line ending you want for those files.
+* It will open and change all the files but they are NOT automatically saved.
 
-# How it works, what it shows?
 
-- The extension registers different commands that use the `workspace.fs`-API.
-- Registers command and the corresponding activation events via `package.json`
+## New Features and Changes
 
-# How to run locally
-
-* `npm run watch` to start the compiler in watch mode
-* open this folder in VS Code and press `F5`
+Please fork it and send me a pull request!
