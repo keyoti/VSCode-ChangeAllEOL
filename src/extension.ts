@@ -68,7 +68,6 @@ export function activate(context: vscode.ExtensionContext) {
 				whiteList.push(x)
 			}
 		}
-		console.log(blackWhite, whiteList, blackList)
 
 		let newEnding = await vscode.window.showQuickPick(["LF", "CRLF"]);
 
