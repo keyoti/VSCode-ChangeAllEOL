@@ -2,7 +2,7 @@
 	"name": "keyoti-changeallendoflinesequence",
 	"displayName": "Change All End Of Line Sequence",
 	"description": "Runs the built-in 'Change End Of Line Sequence' on all files of a specified type, leaving them open and unsaved.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "vs-publisher-1448185",
 	"repository": {
 		"url": "https://github.com/keyoti/VSCode-ChangeAllEOL",

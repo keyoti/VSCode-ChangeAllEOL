@@ -63,9 +63,9 @@ export function activate(context: vscode.ExtensionContext) {
 		let blackList: Array<string> = [];
 		for (let x of blackWhite) {
 			if (x[0] === '!') {
-				blackList.push(x.substring(1))
+				blackList.push(x.substring(1));
 			} else {
-				whiteList.push(x)
+				whiteList.push(x);
 			}
 		}
 
