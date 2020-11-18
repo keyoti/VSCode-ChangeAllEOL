@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 					&& !blackList.includes(name)
 					&& (!whiteList.length || whiteList.includes(name))
 					&& !name.startsWith(".")){
-					let newWhiteList: Array<string> =  whiteList.includes(name) ? [] : [...whiteList]
+					let newWhiteList: Array<string> =  whiteList.includes(name) ? [] : [...whiteList];
 					count += (await convertLineEndingsInFilesInFolder(vscode.Uri.file(posix.join(folder.path, name)), fileTypeArray, newEnding, blackList, newWhiteList)).count;
 				}
 			}
@@ -64,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
 		for (let x of blackWhite) {
 			if (x[0] === '!') {
 				blackList.push(x.substring(1));
-			} else {
+			} else if(x.length>0) {
 				whiteList.push(x);
 			}
 		}
