@@ -71,13 +71,15 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let newEnding = await vscode.window.showQuickPick(["LF", "CRLF"]);
 
-		if(fileTypes!==null && newEnding!=null){
-			fileTypeArray = fileTypes!.split(',');
+		if(fileTypes!==null && newEnding!==null){
+			fileTypeArray = fileTypes!.split(/[ ,]+/);
 
 			if(vscode.workspace.workspaceFolders!==null && vscode.workspace.workspaceFolders!.length>0){
 				const folderUri = vscode.workspace.workspaceFolders![0].uri;
-				const info = await convertLineEndingsInFilesInFolder(folderUri, fileTypeArray, newEnding, blackList, whiteList);
-				vscode.window.showInformationMessage(info.count+" files converted");
+				const info = await convertLineEndingsInFilesInFolder(folderUri, fileTypeArray, newEnding!, blackList, whiteList);
+				if(info!==null){
+					vscode.window.showInformationMessage(info!.count+" files converted");
+				}
 
 			}
 		}
